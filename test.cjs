@@ -1,0 +1,3 @@
+const assert=require('node:assert/strict');const m=require('./dashboard-math.js');const d=require('./dashboard-data.json');const near=(a,b)=>assert.ok(Math.abs(a-b)<1e-8);
+const s=m.youtube(d.youtube);near(s.impressions,179200);near(s.views,9814);near(s.ctr,9814/179200);near(s.hours,38572.4/60);near(m.scenario(s,0,0).hours,s.hours);near(m.scenario(s,.1,.1).hours,s.hours*1.21);near(m.youtube(d.youtube.filter(r=>r.device==='Mobile')).hours+m.youtube(d.youtube.filter(r=>r.device==='Desktop')).hours,s.hours);assert.equal(d.youtube.length,24);for(const r of d.youtube)assert.ok(r.views<=r.impressions&&r.watchMinutes>=0);
+console.log('All numerical and data-consistency checks passed.');
